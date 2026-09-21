@@ -13,11 +13,24 @@ export function storeLink(site, ct) {
     : site.storeUrl;
 }
 
-const faqJsonLd = (faq) => `<script type="application/ld+json">${JSON.stringify({
+const jsonLd = (obj) => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`;
+
+const faqJsonLd = (faq) => jsonLd({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: faq.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
-})}</script>`;
+});
+
+const appJsonLd = (site) => jsonLd({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: site.appName,
+  operatingSystem: 'iOS',
+  applicationCategory: 'LifestyleApplication',
+  installUrl: site.storeUrl,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' },
+  url: `${site.baseUrl}/`,
+});
 
 export function buildSite(root) {
   const site = JSON.parse(read('site.json'));
@@ -29,10 +42,10 @@ export function buildSite(root) {
   const write = (rel, text) => { const p = join(root, rel); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, text); written.push(rel); };
 
   const page = (rel, { content, title, description, path, root: rootRel, ct, extraHead = '' }) =>
-    write(rel, render(layout, { ...site, title, description, canonical: `${site.baseUrl}${path}`, root: rootRel, storeLink: storeLink(site, ct), extraHead, content }));
+    write(rel, render(layout, { ...site, title, description, canonical: `${site.baseUrl}${path}`, root: rootRel, storeLink: storeLink(site, ct), extraHead, content, appJsonLd: appJsonLd(site) }));
 
   page('index.html', {
-    title: `${site.appName} - ${site.tagline}`,
+    title: `${site.appName}｜${site.tagline}`,
     description: '好きなものを自分だけの評価軸で記録する評価手帳。非公開・アカウント不要。映画・本・ゲーム・カフェ・ワイン・観劇・コスメ、なんでも記録できる iPhone アプリ。',
     path: '/', root: './', ct: 'site-top',
     content: render(topTpl, { ...site, genres, storeLink: storeLink(site, 'site-top') }),

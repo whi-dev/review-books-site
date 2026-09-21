@@ -24,7 +24,7 @@ test('buildSite writes top, genres, sitemap, robots, css', () => {
   assert.match(movies, /<title>映画の記録アプリ｜レビューブック<\/title>/);
   assert.match(movies, /rel="canonical" href="https:\/\/whi-dev\.github\.io\/review-books-site\/movies\/"/);
   assert.match(movies, /apple-itunes-app/);
-  assert.match(movies, /"@type": "SoftwareApplication"/);
+  assert.match(movies, /"@type":"SoftwareApplication"/);
   assert.match(movies, /"@type":"FAQPage"/);
   assert.equal(written.length, 12);
 });

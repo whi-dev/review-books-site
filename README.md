@@ -6,7 +6,7 @@
 
     npm run build   # src/genres.json + src/templates → index.html, <slug>/index.html, sitemap.xml, robots.txt
     npm run check   # 生成物の検証（リンク切れ・必須メタ・sitemap 件数）
-    npm test        # build.mjs の単体テスト
+    npm test        # render.mjs / build.mjs の単体テスト
     npm run serve   # http://localhost:8080
 
 生成物はコミットする（Actions は使わない）。

@@ -22,9 +22,17 @@ for (const rel of pages) {
     ['meta description', /<meta name="description" content="[^"]+"/g],
     ['canonical', /<link rel="canonical" href="https:\/\/[^"]+"/g],
     ['apple-itunes-app', /<meta name="apple-itunes-app"/g],
-    ['SoftwareApplication', /"@type": "SoftwareApplication"/g],
   ]) if (count(html, re) !== 1) fail(`${rel}: expected exactly one ${name}`);
-  if (rel !== 'index.html' && count(html, /"@type":"FAQPage"/g) !== 1) fail(`${rel}: expected exactly one FAQPage`);
+
+  const typeCounts = {};
+  for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    let obj;
+    try { obj = JSON.parse(m[1]); } catch { fail(`${rel}: invalid JSON-LD`); continue; }
+    const type = obj['@type'];
+    typeCounts[type] = (typeCounts[type] || 0) + 1;
+  }
+  if (typeCounts.SoftwareApplication !== 1) fail(`${rel}: expected exactly one SoftwareApplication`);
+  if (rel !== 'index.html' && typeCounts.FAQPage !== 1) fail(`${rel}: expected exactly one FAQPage`);
   for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const url = m[1];
     if (/^(https?:|mailto:|#)/.test(url)) continue;
