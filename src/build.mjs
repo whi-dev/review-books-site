@@ -33,7 +33,7 @@ export function buildSite(root) {
 
   page('index.html', {
     title: `${site.appName} - ${site.tagline}`,
-    description: '好きなものを自分だけの評価軸で記録するレビュー手帳。非公開・アカウント不要。映画・本・ゲーム・カフェ・ワイン・観劇・コスメ、なんでも記録できる iPhone アプリ。',
+    description: '好きなものを自分だけの評価軸で記録する評価手帳。非公開・アカウント不要。映画・本・ゲーム・カフェ・ワイン・観劇・コスメ、なんでも記録できる iPhone アプリ。',
     path: '/', root: './', ct: 'site-top',
     content: render(topTpl, { ...site, genres, storeLink: storeLink(site, 'site-top') }),
   });

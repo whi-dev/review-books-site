@@ -24,6 +24,7 @@ for (const rel of pages) {
     ['apple-itunes-app', /<meta name="apple-itunes-app"/g],
     ['SoftwareApplication', /"@type": "SoftwareApplication"/g],
   ]) if (count(html, re) !== 1) fail(`${rel}: expected exactly one ${name}`);
+  if (rel !== 'index.html' && count(html, /"@type":"FAQPage"/g) !== 1) fail(`${rel}: expected exactly one FAQPage`);
   for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const url = m[1];
     if (/^(https?:|mailto:|#)/.test(url)) continue;
