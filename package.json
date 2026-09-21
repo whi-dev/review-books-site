@@ -1,0 +1,11 @@
+{
+  "name": "review-books-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "check": "node src/check.mjs",
+    "test": "node --test src/",
+    "serve": "python3 -m http.server 8080"
+  }
+}
