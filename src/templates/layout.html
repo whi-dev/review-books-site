@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+<meta name="theme-color" content="#FAFAF9">
+<meta name="apple-itunes-app" content="app-id={{appId}}">
+{{#if searchConsoleToken}}<meta name="google-site-verification" content="{{searchConsoleToken}}">{{/if}}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{appName}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="{{baseUrl}}/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="{{root}}assets/icon.png">
+<link rel="apple-touch-icon" href="{{root}}assets/icon.png">
+<link rel="stylesheet" href="{{root}}style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "{{appName}}",
+  "operatingSystem": "iOS",
+  "applicationCategory": "LifestyleApplication",
+  "installUrl": "{{storeUrl}}",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+  "url": "{{baseUrl}}/"
+}
+</script>
+{{{extraHead}}}
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="{{root}}"><img src="{{root}}assets/icon.png" alt="" width="28" height="28">{{appName}}</a>
+  <a class="btn btn-small" href="{{storeLink}}">App Store で入手</a>
+</header>
+<main>
+{{{content}}}
+</main>
+<footer class="site-footer">
+  <p><a href="{{legalUrl}}">プライバシーポリシー</a> ・ <a href="{{legalUrl}}">サポート</a></p>
+  <p>© 2026 レビューブック</p>
+</footer>
+</body>
+</html>

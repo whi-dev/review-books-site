@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://whi-dev.github.io/review-books-site/sitemap.xml
